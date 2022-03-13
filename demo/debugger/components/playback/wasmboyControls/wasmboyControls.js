@@ -1,7 +1,7 @@
 // Compoonent that contains the canvas and the actual output
 // of WasmBoy
 
-import { h, Component } from 'preact';
+import { h, Component, createRef } from 'preact';
 s;
 import { Pubx } from 'pubx';
 import { PUBX_KEYS } from '../../../pubx.config';
@@ -11,11 +11,15 @@ import InputSubmit from '../../inputSubmit';
 import DebuggerAnalytics from '../../../analytics';
 import { WasmBoy } from '../../../wasmboy';
 
+import { fetchROMAsByteArray } from '../../../../../lib/wasmboy/fetchrom.js';
+
 import './wasmboyControls.css';
 
 let unsubLoading = false;
 
 export default class WasmBoyControls extends Component {
+  ramFileRef = createRef();
+
   constructor() {
     super();
 
@@ -184,6 +188,13 @@ export default class WasmBoyControls extends Component {
     });
   }
 
+  async replaceRam(event) {
+    const loaded = await fetchROMAsByteArray(event.target.files[0]);
+    // HACK: have to refer to loaded.ROM even though this is technically RAM
+    // because that's what the routine names loaded data.
+    await WasmBoy.replaceRam(loaded.ROM);
+  }
+
   render() {
     return (
       <div class="wasmboy-controls">
@@ -246,6 +257,13 @@ export default class WasmBoyControls extends Component {
           <button disabled={!this.state.loadedAndStarted} onClick={() => this.showLoadStateModal()}>
             Load State
           </button>
+        </div>
+
+        <div class="wasmboy-controls__group">
+          <button disabled={!this.state.loadedAndStarted} onClick={() => this.ramFileRef.current.click()}>
+            Upload RAM
+          </button>
+          <input ref={this.ramFileRef} type="file" onChange={event => this.replaceRam(event)} style="display: none;" />
         </div>
       </div>
     );
