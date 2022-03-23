@@ -1,5 +1,5 @@
 // Public Exports
-export { config, hasCoreStarted, saveState, loadState, isGBC } from './core';
+export { config, hasCoreStarted, saveState, loadState, isGBC, getCurrentRamBank, getCurrentRomBank } from './core';
 export {
   getStepsPerStepSet,
   getStepSets,
@@ -61,7 +61,13 @@ export {
   CARTRIDGE_ROM_LOCATION,
   CARTRIDGE_ROM_SIZE,
   DEBUG_GAMEBOY_MEMORY_LOCATION,
-  DEBUG_GAMEBOY_MEMORY_SIZE
+  DEBUG_GAMEBOY_MEMORY_SIZE,
+  DEBUG_TRACE_RAM_LOCATION,
+  DEBUG_TRACE_RAM_SIZE,
+  DEBUG_TRACE_ROM_LOCATION,
+  DEBUG_TRACE_ROM_SIZE,
+  DEBUG_TRACE_GAMEBOY_MEMORY_LOCATION,
+  DEBUG_TRACE_GAMEBOY_MEMORY_SIZE
 } from './constants';
 export { getWasmBoyOffsetFromGameBoyOffset } from './memory/memoryMap';
 export {

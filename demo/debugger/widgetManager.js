@@ -15,6 +15,7 @@ import WasmBoyOptions from './components/playback/wasmboyOptions/wasmboyOptions'
 import CpuState from './components/cpu/cpuState/cpuState';
 import Disassembler from './components/cpu/disassembler/disassembler';
 import MemoryViewer from './components/memory/viewer/viewer';
+import MemoryTracer from './components/memory/tracer/tracer';
 import GraphicsState from './components/graphics/graphicsState/graphicsState';
 import BackgroundMap from './components/graphics/backgroundMap/backgroundMap';
 import TileData from './components/graphics/tileData/tileData';
@@ -39,6 +40,7 @@ const components = {
   CpuState: <CpuState />,
   Disassembler: <Disassembler />,
   MemoryViewer: <MemoryViewer />,
+  MemoryTracer: <MemoryTracer />,
   GraphicsState: <GraphicsState />,
   BackgroundMap: <BackgroundMap />,
   TileData: <TileData />,

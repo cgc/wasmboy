@@ -39,11 +39,11 @@ import {
 } from '../helpers/index';
 import {
   Memory,
-  eightBitLoadFromGBMemoryWithTraps,
-  eightBitStoreIntoGBMemoryWithTraps,
-  sixteenBitStoreIntoGBMemoryWithTraps,
-  eightBitLoadFromGBMemory,
-  sixteenBitLoadFromGBMemory
+  eightBitLoadFromGBMemoryWithTrapsTrace,
+  eightBitStoreIntoGBMemoryWithTrapsTrace,
+  sixteenBitStoreIntoGBMemoryWithTrapsTrace,
+  eightBitLoadFromGBMemoryTraceExec,
+  sixteenBitLoadFromGBMemoryTrace
 } from '../memory/index';
 import { setInterrupts } from '../interrupts/index';
 import { u8Portable, u16Portable, i8Portable } from '../portable/portable';
@@ -125,34 +125,34 @@ export function executeOpcode(opcode: i32): i32 {
 // Wrapper functions around loading and storing memory, and syncing those cycles
 export function eightBitLoadSyncCycles(gameboyOffset: i32): u8 {
   syncCycles(4);
-  return <u8>eightBitLoadFromGBMemoryWithTraps(gameboyOffset);
+  return <u8>eightBitLoadFromGBMemoryWithTrapsTrace(gameboyOffset);
 }
 
 export function eightBitStoreSyncCycles(gameboyOffset: i32, value: i32): void {
   syncCycles(4);
-  eightBitStoreIntoGBMemoryWithTraps(gameboyOffset, value);
+  eightBitStoreIntoGBMemoryWithTrapsTrace(gameboyOffset, value);
 }
 
 export function sixteenBitLoadSyncCycles(gameboyOffset: i32): u16 {
   syncCycles(8);
   // sixteen bit load has traps even though it has no label
-  return <u16>sixteenBitLoadFromGBMemory(gameboyOffset);
+  return <u16>sixteenBitLoadFromGBMemoryTrace(gameboyOffset);
 }
 
 export function sixteenBitStoreSyncCycles(gameboyOffset: i32, value: i32): void {
   syncCycles(8);
-  sixteenBitStoreIntoGBMemoryWithTraps(gameboyOffset, value);
+  sixteenBitStoreIntoGBMemoryWithTrapsTrace(gameboyOffset, value);
 }
 
 // Functions to access the next operands of a opcode, reffering to them as "dataBytes"
 function getDataByteOne(): u8 {
   syncCycles(4);
-  return <u8>eightBitLoadFromGBMemory(Cpu.programCounter);
+  return <u8>eightBitLoadFromGBMemoryTraceExec(Cpu.programCounter);
 }
 
 function getDataByteTwo(): u8 {
   syncCycles(4);
-  return <u8>eightBitLoadFromGBMemory(u16Portable(Cpu.programCounter + 1));
+  return <u8>eightBitLoadFromGBMemoryTraceExec(u16Portable(Cpu.programCounter + 1));
 }
 // Get our concatenated databyte one and getDataByteTwo()
 // Find and replace with : getConcatenatedDataByte()

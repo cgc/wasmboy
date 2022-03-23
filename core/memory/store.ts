@@ -3,6 +3,7 @@ import { checkWriteTraps } from './writeTraps';
 import { getWasmBoyOffsetFromGameBoyOffset } from './memoryMap';
 import { splitHighByte, splitLowByte } from '../helpers/index';
 import { Breakpoints } from '../debug/breakpoints';
+import { traceStore } from '../debug/debug-memory';
 
 export function eightBitStoreIntoGBMemory(gameboyOffset: i32, value: i32): void {
   store<u8>(getWasmBoyOffsetFromGameBoyOffset(gameboyOffset), value);
@@ -46,4 +47,14 @@ export function sixteenBitStoreIntoGBMemory(offset: i32, value: i32): void {
 
 export function storeBooleanDirectlyToWasmMemory(offset: i32, value: boolean): void {
   store<u8>(offset, <i32>value);
+}
+
+export function eightBitStoreIntoGBMemoryWithTrapsTrace(offset: i32, value: i32): void {
+  traceStore(offset);
+  eightBitStoreIntoGBMemoryWithTraps(offset, value);
+}
+export function sixteenBitStoreIntoGBMemoryWithTrapsTrace(offset: i32, value: i32): void {
+  traceStore(offset);
+  traceStore(offset + 1);
+  sixteenBitStoreIntoGBMemoryWithTraps(offset, value);
 }

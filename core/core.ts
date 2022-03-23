@@ -134,6 +134,13 @@ export function isGBC(): i32 {
   return <i32>Cpu.GBCEnabled;
 }
 
+export function getCurrentRomBank(): i32 {
+  return <i32>Memory.currentRomBank;
+}
+export function getCurrentRamBank(): i32 {
+  return <i32>Memory.currentRamBank;
+}
+
 // Function to return an address to store into save state memory
 // this is to regulate our 20 slots
 // https://docs.google.com/spreadsheets/d/17xrEzJk5-sCB9J2mMJcVnzhbE-XH_NvczVSQH9OHvRk/edit?usp=sharing

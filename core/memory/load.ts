@@ -3,6 +3,7 @@ import { checkReadTraps } from './readTraps';
 import { getWasmBoyOffsetFromGameBoyOffset } from './memoryMap';
 import { concatenateBytes } from '../helpers/index';
 import { Breakpoints } from '../debug/breakpoints';
+import { traceLoad, traceExec } from '../debug/debug-memory';
 
 export function eightBitLoadFromGBMemory(gameboyOffset: i32): i32 {
   return <i32>load<u8>(getWasmBoyOffsetFromGameBoyOffset(gameboyOffset));
@@ -37,4 +38,20 @@ export function sixteenBitLoadFromGBMemory(offset: i32): i32 {
 
 export function loadBooleanDirectlyFromWasmMemory(offset: i32): boolean {
   return <i32>load<u8>(offset) > 0;
+}
+
+export function eightBitLoadFromGBMemoryTraceExec(offset: i32): i32 {
+  traceExec(offset);
+  return eightBitLoadFromGBMemory(offset);
+}
+
+export function eightBitLoadFromGBMemoryWithTrapsTrace(offset: i32): i32 {
+  traceLoad(offset);
+  return eightBitLoadFromGBMemoryWithTraps(offset);
+}
+
+export function sixteenBitLoadFromGBMemoryTrace(offset: i32): i32 {
+  traceLoad(offset);
+  traceLoad(offset + 1);
+  return sixteenBitLoadFromGBMemory(offset);
 }

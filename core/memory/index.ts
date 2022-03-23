@@ -8,7 +8,10 @@ export {
   eightBitLoadFromGBMemoryWithTraps,
   eightBitLoadFromGBMemory,
   sixteenBitLoadFromGBMemory,
-  loadBooleanDirectlyFromWasmMemory
+  loadBooleanDirectlyFromWasmMemory,
+  eightBitLoadFromGBMemoryWithTrapsTrace,
+  eightBitLoadFromGBMemoryTraceExec,
+  sixteenBitLoadFromGBMemoryTrace
 } from './load';
 
 export {
@@ -16,7 +19,9 @@ export {
   sixteenBitStoreIntoGBMemoryWithTraps,
   eightBitStoreIntoGBMemory,
   sixteenBitStoreIntoGBMemory,
-  storeBooleanDirectlyToWasmMemory
+  storeBooleanDirectlyToWasmMemory,
+  eightBitStoreIntoGBMemoryWithTrapsTrace,
+  sixteenBitStoreIntoGBMemoryWithTrapsTrace
 } from './store';
 
 export { initializeDma, updateHblankHdma } from './dma';

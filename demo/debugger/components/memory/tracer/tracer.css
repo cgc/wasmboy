@@ -1,0 +1,24 @@
+.memory-tracer {
+}
+
+.MemoryTracer-Viewer {
+  display: flex;
+}
+
+.MemoryTracer-Viewer-banks {
+  font-family: monospace;
+  flex-basis: 25%;
+}
+
+.MemoryTracer-Viewer-emuBank {
+  font-weight: bold;
+}
+
+.MemoryTracer-Viewer-banks button {
+  padding: 1px;
+  margin: 1px;
+}
+
+.MemoryTracer-Viewer-canvas {
+  flex-basis: 75%;
+}

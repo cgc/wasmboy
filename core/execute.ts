@@ -4,7 +4,7 @@ import { setHasCoreStarted } from './core';
 import { syncCycles } from './cycles';
 import { Cpu, executeOpcode } from './cpu/index';
 import { checkInterrupts } from './interrupts/index';
-import { eightBitLoadFromGBMemory } from './memory/index';
+import { eightBitLoadFromGBMemoryTraceExec } from './memory/index';
 import { getNumberOfSamplesInAudioBuffer } from './sound/index';
 import { u16Portable } from './portable/portable';
 
@@ -162,7 +162,7 @@ export function executeStep(): i32 {
     // FA FA 34 ld a,(34FA)
     // 12 ld (de),a
 
-    let haltBugOpcode: i32 = <u8>eightBitLoadFromGBMemory(Cpu.programCounter);
+    let haltBugOpcode: i32 = <u8>eightBitLoadFromGBMemoryTraceExec(Cpu.programCounter);
     // Execute opcode will handle the actual PC behavior
     let haltBugCycles: i32 = executeOpcode(haltBugOpcode);
     syncCycles(haltBugCycles);
@@ -184,7 +184,7 @@ export function executeStep(): i32 {
   // If we are not halted or stopped, run instructions
   // If we are halted, this will be skipped and just sync the 4 cycles
   if (!Cpu.isHalted() && !Cpu.isStopped) {
-    opcode = <u8>eightBitLoadFromGBMemory(Cpu.programCounter);
+    opcode = <u8>eightBitLoadFromGBMemoryTraceExec(Cpu.programCounter);
     numberOfCycles = executeOpcode(opcode);
   }
 
